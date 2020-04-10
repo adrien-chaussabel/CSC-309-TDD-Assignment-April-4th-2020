@@ -1,0 +1,23 @@
+{
+  "name": "tdd-asgn",
+  "version": "1.0.0",
+  "description": "tdd assignment for csc309",
+  "main": "index.js",
+  "dependencies": {
+    "jest": "^25.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adrien-chaussabel/CSC-309-TDD-Assignment-April-4th-2020.git"
+  },
+  "author": "Adrien Chaussabel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adrien-chaussabel/CSC-309-TDD-Assignment-April-4th-2020/issues"
+  },
+  "homepage": "https://github.com/adrien-chaussabel/CSC-309-TDD-Assignment-April-4th-2020#readme"
+}
