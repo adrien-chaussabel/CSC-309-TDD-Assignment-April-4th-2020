@@ -20,12 +20,7 @@ test('Test handling of two names', () =>{
     expect(greet(['Jill', 'Jane'])).toBe('Hello, Jill and Jane.');
 });
 
-test('Test handling of two uppercase names', () =>{
-    expect(greet(['JILL', 'JANE'])).toBe('HELLO, JILL AND JANE!');
-});
-
 // Req 5
-
 test('Test handling of arbitrary number of names', () =>{
     expect(greet(['Jill', 'Jane', 'Amy', 'Brian'])).toBe(
         'Hello, Jill, Jane, Amy, and Brian.');
@@ -37,5 +32,11 @@ test('Test separate shouting greetings', () =>{
 });
 
 // TODO: Req 7
+test('Split multiple names passed in as a single name', () =>{
+    expect(greet(['Bob', 'Charlie, Dianne'])).toBe('Hello, Bob, Charlie, and Dianne.')
+});
 
 // TODO: Req 8
+test('Test escaped commas', () =>{
+    expect(greet(["Bob", "\"Charlie, Dianne\""])).toBe("Hello, Bob and Charlie, Dianne.")
+});

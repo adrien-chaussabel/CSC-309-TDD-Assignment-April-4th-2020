@@ -1,45 +1,67 @@
 // The Greeting Kata
 
 function greet(name){
-    if(name === null)
-        name = 'my friend'
-    else if(!Array.isArray(name)){
-        // One name
-        upperBool = isUpper(name);
+
+    name = parseNames(name);
+
+    nameLists = filterNamesByCase(name);
+
+    if(nameLists[0].length == 0){
+        //Only Lower
+        return greetNormal(nameLists[1]);
     }
-    else{
-        // More than one name
-        
-        shouts = getShouts();
-        upperBool = isUpperForArray(name);
-        // only 2 names
-        if(name.length == 2)
-            name = name.join(' and ');
-        // 3+ names
-        else
-            name = join3PlusNames(name);
+    else if(nameLists[1].length == 0){
+        //Only uppers
+        return greetShout(nameLists[0]);
     }
-    greetString = `Hello, ${name}`;
-    return upperBool ? greetString.replace(',', '').toUpperCase() + '!' : greetString + '.'; 
+    //mixed case type
+    return greetNormal(nameLists[1]) + ' AND ' + greetShout(nameLists[0]);
 }
 
-function isUpper(str){
-    return str === str.toUpperCase();
+function greetNormal(name){
+    return `Hello, ${joinNames(name)}.`
 }
 
-function isUpperForArray(names){
-    return names.every(isUpper);
+function greetShout(name){
+    return `HELLO ${joinNames(name).toUpperCase()}!`
 }
 
-function join3PlusNames(names){
-    return names.splice(0, names.length-1).join(', ') + `, and ${names.slice(-1)[0]}`;
+function joinNames(names){
+    switch(names.length){
+        case 1: return names[0];
+        case 2: return names.join(' and ')
+        default: return names.splice(0, names.length-1).join(', ') + `, and ${names.slice(-1)[0]}`;
+    }
 }
 
-function getShouts(names){
-    shoutNames = ''
-    mask = names.map(n => isUpper(n));
-    shoutNames = names.filter((name, i) => mask[i]);
-    return shoutNames;
+function filterNamesByCase(names){
+    shoutNames = []
+    normalNames = []
+    shoutNames = names.filter(name => name === name.toUpperCase());
+    normalNames = names.filter(name => !shoutNames.includes(name));
+    return [shoutNames, normalNames];
+}
+
+function hasEscape(str){
+    return str[0] == '\"' && str[str.length-1] == '\"'
+}
+
+function filterEscaped(names){
+    return [names.filter(name => !hasEscape(name)),
+            names.filter(name => hasEscape(name))];
+}
+
+function parseNames(names){
+    if(names === null)
+        names = 'my friend'
+    names = Array.isArray(names) ? names : [names]
+    filtList = filterEscaped(names);
+
+    arr = []
+    spl = filtList[0].map(name => name.split(', '))
+    spl.map(nest => nest.map(e => arr.push(e)));
+    filtList[1].every(e => arr.push(e.slice(1, e.length - 1)))
+    return arr;
 }
 
 
